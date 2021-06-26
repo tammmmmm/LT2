@@ -1,0 +1,5 @@
+local saveSlot = 3 -- change this to the slot you want free (max) land on
+
+---
+
+local plr = game.Players.LocalPlayer local freeproperty,property local properties = game.Workspace.Properties:GetChildren() local offsets = {-80,-40,0,40,80} for i,v in next, properties do if not v.Owner.Value then freeproperty = v break end end game.ReplicatedStorage.LoadSaveRequests.RequestSave:InvokeServer(saveSlot,plr) game.ReplicatedStorage.PropertyPurchasing.SetPropertyPurchasingValue:InvokeServer(true) game.ReplicatedStorage.PropertyPurchasing.ClientPurchasedProperty:FireServer(freeproperty,freeproperty.PrimaryPart.Position) game.ReplicatedStorage.PropertyPurchasing.SetPropertyPurchasingValue:InvokeServer(false) for i,v in next,game.Workspace.Properties:GetChildren()do if v.Owner.Value==plr then property=v break end end for i,v in next,offsets do for a,b in next,offsets do game.ReplicatedStorage.PropertyPurchasing.ClientExpandedProperty:FireServer(property,property.PrimaryPart.CFrame*CFrame.new(v,0,b)) end end game.ReplicatedStorage.LoadSaveRequests.RequestSave:InvokeServer(saveSlot,plr)
